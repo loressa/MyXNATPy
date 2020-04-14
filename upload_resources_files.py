@@ -29,7 +29,8 @@ def upload_resources(session, project_id, subject_id, experiment_id, resources_f
     # And upload the file there 
     resources_file_name = resources_file.split(os.sep)[-1]
     xnat_resources.upload(resources_file,resources_file_name)
-    
+ 
+# ---------------------------------------------------------------------------------------------------------------------   
 
 if __name__ == '__main__':
 
