@@ -13,6 +13,8 @@ import xnat
 import os
 import getpass
 
+# ---------------------------------------------------------------------------------------------------------------------
+
 def upload_scans(session, project_id, subject_id, experiment_id, scans_file):
     xnat_project = session.projects[project_id]
     # We create the subject with the following line: 
@@ -20,15 +22,19 @@ def upload_scans(session, project_id, subject_id, experiment_id, scans_file):
     # And now we upload with the import_ method - the experiment will be created in this step
     session.services.import_(scans_file,overwrite=None, quarantine=False, destination='/archive', trigger_pipelines=None,project=project_id, subject=subject_id, experiment=experiment_id, content_type=None)
 
-def upload_resources(session, project_id, subject_id, experiment_id, resources_file):
+# ---------------------------------------------------------------------------------------------------------------------
+
+def upload_resources(session, project_id, subject_id, experiment_id, resources):
     xnat_project        = session.projects[project_id]
     xnat_subject        = session.classes.SubjectData(parent=xnat_project, label=subject_id)
     xnat_experiment     = session.classes.CtSessionData(parent=xnat_subject, label=experiment_id)
     # Create the resources folder called 'RAW'
     xnat_resources      = session.classes.ResourceCatalog(parent=xnat_experiment, label='RAW')
-    # And upload the file there 
-    resources_file_name = resources_file.split(os.sep)[-1]
-    xnat_resources.upload(resources_file,resources_file_name)
+    # And upload the resource files there
+    for resource_file in resources:
+        resources_file_name = resource_file.split(os.sep)[-1]
+        print(resources_file_name)
+        xnat_resources.upload(resource_file,resources_file_name)
  
 # ---------------------------------------------------------------------------------------------------------------------   
 
@@ -57,8 +63,7 @@ if __name__ == '__main__':
                     resources.append(line.split(':')[i])
        
                 upload_scans(session, project_id, subject_id, experiment_id, scans_file)
-                for resource_file in resources:
-                    upload_resources(session, project_id, subject_id, experiment_id, resource_file)
+                upload_resources(session, project_id, subject_id, experiment_id, resources)
                     
                 line = fp.readline()
 
