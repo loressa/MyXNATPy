@@ -15,16 +15,18 @@ import getpass
 def remove_subjects(session, project_id):
     xnat_project = session.projects[project_id]
     # We find all subjects:
-    subjects = project.subjects
-    for subject in subjects:
+    subjects = xnat_project.subjects
+    for subject_id in subjects:
+        print('Removing subject %s' %(subject_id))
+        subject = xnat_project.subjects[subject_id]
         subject.delete()
     
 # ---------------------------------------------------------------------------------------------------------------------   
 
 if __name__ == '__main__':
 
-    xnathost   = 'URL'
-    project_id = 'NEW_PROJECT'
+    xnathost   = 'XNATURL'
+    project_id = 'PROJECT'
     
     user_id    = 'USER'
     pwd        = getpass.getpass("Password for user name : %s = " % user_id)
