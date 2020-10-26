@@ -21,7 +21,7 @@ def check_file_type(dicom_file):
                 return False
         except:
             print ('ATTN: No ImageType in %s ' %dicom_file)
-            return False
+            #return False
         # Check ImageType[1]
         try:
             image_type_1 = data.ImageType[1].lower()
