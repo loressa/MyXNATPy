@@ -17,3 +17,10 @@ c) check for lines with 'ATTN' and check if it makes sense to change those flagg
 4 - Upload clean directories to new XNAT project
 ls -d /path/to/clean/dirs/ > input_dirs_batch0.txt  
 sudo python3 upload_dirs.py input_dirs_batch0.txt 
+
+Things to check:
+1) PHI information: checkPHI.py
+2) Check both projects one against the other: compare_projects.py. Alternatively, check_uploaded_sessions.py checks if a list of sessions have been correctly uploaded.
+
+If something needs to be deleted:
+1) delete_scans.py deletes scans one by one from an input list     
