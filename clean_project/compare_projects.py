@@ -266,7 +266,11 @@ if __name__ == '__main__':
 
                         else:
                             experiment = xnat_project2.subjects[subject_name].experiments[experiment_name]
-                            print ('ATTN! Not found experiment %s (%s)' %(experiment_name, experiment.data['modality']))
+                            try:
+                                modality = experiment.data['modality']
+                            except:
+                                modality = 'unknown'
+                            print ('ATTN! Not found experiment %s (%s)' %(experiment_name, modality))
                 else:
                     print ('ATTN! Not found subject %s' %subject_name)
             except:
