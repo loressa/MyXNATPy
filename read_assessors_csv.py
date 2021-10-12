@@ -11,26 +11,21 @@ import os, sys
 import getpass
 import csv
 
-# ---------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
 
-    # 1 - Inputs
+    xnathost   = 'XNATURL'
+    project_id = 'PROJECTID'
 
-    name_assessor = ''
-    
-    # 2 - Make XNAT session                                                                                                                           
-    xnathost   = 'http://10.1.1.19'
-    project_id = 'VTT_test'
-
-    user_id    = 'admin'
+    user_id    = 'USERID'
     pwd        = getpass.getpass("Password for user name : %s = " % user_id)
 
-    output_file_name = 'VTT_assessments_23.9.21.csv'
+    output_file_name = 'OUTPUTFILE.csv'
     
     with open(output_file_name, mode='w') as output_file:
         output_csv = csv.writer(output_file, delimiter=',')
-        output_csv.writerow(['Experiment','Reader','Assessment','Quality','comments'])
+        output_csv.writerow(['Experiment','Reader','Assessment', 'Confidence', 'Quality','comments'])
         
         with xnat.connect(xnathost, user=user_id, password=pwd) as session:
 
@@ -48,35 +43,9 @@ if __name__ == '__main__':
                     if ('RAPID' in current_assessor.label):
                         reader = current_assessor.reader
                         assessment = current_assessor.assessment
+                        confidence = current_assessor.confidence
                         quality = current_assessor.quality
                         comments = current_assessor.comments
                         
-                        output_csv.writerow([experiment_label,reader,assessment,quality,comments])
-
-
-
-
-
-        #experiments = connection.experiments
-
-        # first make a map with image_session_id and image_session_label
-        #dict_image_session_id = {}
-        
-        #for experiment in experiments:
-        #    current_experiment = connection.experiments[experiment]
-
-             #if ('RAPID' in current_experiment.label):
-                
-        
-        #for experiment in experiments:
-        #    current_experiment = connection.experiments[experiment]
-            
-        #    if ('RAPID' in current_experiment.label):
-                #print(current_experiment)
-        #        image_session_id = current_experiment.image_session_id
-        #        reader = current_experiment.reader
-        #        assessment = current_experiment.assessment
-        #        quality = current_experiment.quality
-        #        comments = current_experiment.comments
-                
+                        output_csv.writerow([experiment_label,reader,assessment,confidence,quality,comments])                
         
