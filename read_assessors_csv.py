@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 # Script written by Lorena Escudero (Department of Radiology, University of Cambridge)
-# to remove given input subject/experiment/scans in an XNAT project
+# to read assessors created using the Visual Turing Test VTT plugins
 #
-# Usage: edit xnathost/project/user and run 'python3 delete_scans.py input.csv'
-# Note: User needs to have admin privileges in project for this script to work
+# Usage: edit xnathost/project/user and run 'python3 read_assessors_csv.py'
+
 
 import xnat
 import os, sys
