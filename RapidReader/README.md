@@ -1,0 +1,1 @@
+Directory with tools for Rapid Reader integration in OHIF viewer plugin to XNAT.
