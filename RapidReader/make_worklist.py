@@ -8,7 +8,6 @@
 
 import os
 
-import xnat
 import getpass
 
 xnathost   = 'XNATURL'
@@ -37,7 +36,7 @@ for reader in list_readers:
     print('Worklist ID: %s' %worklist_id)
 
     # 3 - read the list of items for this user
-    list_experiments = '/Users/les44/Documents/RadiologyResearch/VTT/Worklists/' + reader + '.txt'
+    list_experiments = 'INPUT_PATH' + reader + '.txt'
 
     # 4 - populate the worklist
     with open(list_experiments, 'r') as fp:
