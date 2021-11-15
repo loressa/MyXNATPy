@@ -11,6 +11,9 @@ import os
 import getpass
 
 xnathost   = 'XNATURL'
+if (xnathost[-1] == '/'):
+    xnathost = xnathost[:-1]
+
 project_id = 'PROJECTID'
 user_id    = 'USERID'
 pwd        = getpass.getpass("Password for user name : %s = " % user_id)
@@ -22,7 +25,7 @@ for reader in list_readers:
     print('******************')
     print(' Reader %s' %reader)
     # 1 - curl command to create the worklist
-    command_create = 'curl -u ' + user_id + ':' + pwd + ' -X POST ' + xnathost + 'xapi/workLists/ -H \'Content-Type: application/json\' -d \'{\"readerUsername\":\"' + reader \
+    command_create = 'curl -u ' + user_id + ':' + pwd + ' -X POST ' + xnathost + '/xapi/workLists/ -H \'Content-Type: application/json\' -d \'{\"readerUsername\":\"' + reader \
                     + '\",\"dueDate\": ' + due_date + ',\"name\":\"VTT\",\"description\":\"Visual Turing Test\", \"reportId\":\"VTT\", \"status\":\"Open\"}\''
     #print(command_create)
 
@@ -44,7 +47,7 @@ for reader in list_readers:
 
         while (line):
             experiment_id = line.strip()
-            command_item = 'curl -u ' + user_id + ':' + pwd + ' -X POST ' + xnathost + 'xapi/workLists/' + worklist_id + \
+            command_item = 'curl -u ' + user_id + ':' + pwd + ' -X POST ' + xnathost + '/xapi/workLists/' + worklist_id + \
                        '/items -H \'Content-Type: application/json\' -d \'{\"experimentId\":\"' + experiment_id + '\"}\''
             #print(command_item)
             os.system(command_item)
