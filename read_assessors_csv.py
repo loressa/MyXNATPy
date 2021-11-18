@@ -21,11 +21,11 @@ if __name__ == '__main__':
     user_id    = 'USERID'
     pwd        = getpass.getpass("Password for user name : %s = " % user_id)
 
-    output_file_name = 'OUTPUTFILE.csv'
+    output_file_name = 'OUTPUT'
     
     with open(output_file_name, mode='w') as output_file:
         output_csv = csv.writer(output_file, delimiter=',')
-        output_csv.writerow(['Experiment','Reader','Assessment', 'Confidence', 'Quality','comments'])
+        output_csv.writerow(['Experiment', 'ExperimentID', 'Reader', 'Date Created', 'Assessment', 'Confidence', 'Quality','comments'])
         
         with xnat.connect(xnathost, user=user_id, password=pwd) as session:
 
@@ -46,6 +46,6 @@ if __name__ == '__main__':
                         confidence = current_assessor.confidence
                         quality = current_assessor.quality
                         comments = current_assessor.comments
+                        date_created = current_assessor.fulldata['meta']['start_date']
                         
-                        output_csv.writerow([experiment_label,reader,assessment,confidence,quality,comments])                
-        
+                        output_csv.writerow([experiment_label,experiment,reader,date_created, assessment,confidence,quality,comments])
