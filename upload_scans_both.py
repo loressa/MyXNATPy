@@ -21,7 +21,7 @@ def upload_scans_zip(session, project_id, subject_id, experiment_id, scans_file)
     # We create the subject with the following line:
     xnat_subject = session.classes.SubjectData(parent=xnat_project, label=subject_id)
     # And now we upload with the import_ method - the experiment will be created in this step
-    session.services.import_(scans_file,overwrite='delete', quarantine=False, destination='/archive', trigger_pipelines=None,project=project_id, subject=subject_id, experiment=experiment_id, content_type=None)
+    session.services.import_(scans_file,overwrite=None, quarantine=False, destination='/archive', trigger_pipelines=None,project=project_id, subject=subject_id, experiment=experiment_id, content_type=None)
 
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ def upload_scans_dir(session, project_id, subject_id, experiment_id, scans_dir):
     # We create the subject with the following line:
     xnat_subject = session.classes.SubjectData(parent=xnat_project, label=subject_id)
     # And now we upload with the import_ method - the experiment will be created in this step
-    session.services.import_dir(scans_dir,overwrite='delete', quarantine=False, destination='/archive', trigger_pipelines=None,project=project_id, subject=subject_id, experiment=experiment_id)
+    session.services.import_dir(scans_dir,overwrite=None, quarantine=False, destination='/archive', trigger_pipelines=None,project=project_id, subject=subject_id, experiment=experiment_id)
 
 # ---------------------------------------------------------------------------------------------------------------------   
 
@@ -59,6 +59,4 @@ if __name__ == '__main__':
 
                 #Note: choose one of the two options below, depending if input file has a list of .zip or of directories
                 #upload_scans_zip(session, project_id, subject_id, experiment_id, scans_file)
-                #upload_scans_dir(session, project_id, subject_id, experiment_id, scans_file)
-                 
-
+                upload_scans_dir(session, project_id, subject_id, experiment_id, scans_file)
