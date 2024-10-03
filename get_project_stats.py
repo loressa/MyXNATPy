@@ -32,6 +32,7 @@ def list_subjects_experiments(connection, project_id, output_csv):
             #print(experiment)
             n_total = 0 
             experiment_name = project.subjects[subject].experiments[experiment].label
+            experiment_date = project.subjects[subject].experiments[experiment].date
             scans = project.subjects[subject].experiments[experiment].scans
             for scan in scans:
                 #print(scan)
@@ -40,8 +41,8 @@ def list_subjects_experiments(connection, project_id, output_csv):
                 except:
                     n_files = 0
                 n_total = n_total + n_files
-                output_csv.writerow([subject_name, experiment_name, scan, n_files])
-            output_csv.writerow([subject_name, experiment_name, 'All', n_total])
+                output_csv.writerow([subject_name, experiment_name, experiment_date, scan, n_files])
+            output_csv.writerow([subject_name, experiment_name, experiment_date, 'All', n_total])
                 
 
 # ---------------------------------------------------------------------------------------------------------------------   
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 
             with open(output_file_name, mode='w') as output_file:
                 output_csv = csv.writer(output_file, delimiter=',')
-                output_csv.writerow(['Subject', 'Session', 'Scan', 'Nfiles'])
+                output_csv.writerow(['Subject', 'Session', 'Date', 'Scan', 'Nfiles'])
                 
                 list_subjects_experiments(connection, project_id, output_csv)
         
